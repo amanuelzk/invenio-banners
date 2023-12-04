@@ -28,29 +28,35 @@ class BannerModel(db.Model, Timestamp):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    message = db.Column(db.Text, nullable=False)
+    message = db.Column(db.Text, nullable=True)
     """The message content."""
 
     url_path = db.Column(db.String(255), nullable=True)
     """Define in which URL /path the message will be visible."""
 
-    category = db.Column(db.String(20), nullable=False)
+    category = db.Column(db.String(20), nullable=True)
     """Category of the message, for styling messages per category."""
 
-    start_datetime = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    start_datetime = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     """Start date and time (UTC), can be immediate or delayed."""
 
     end_datetime = db.Column(db.DateTime, nullable=True)
     """End date and time (UTC), must be after `start` or forever if null."""
 
-    active = db.Column(db.Boolean(name="active"), nullable=False, default=True)
+    active = db.Column(db.Boolean(name="active"), nullable=True, default=False)
     """Defines if the message is active, only one at the same time."""
+
+    repo_name = db.Column(db.Text, nullable=False)
+    oai_url = db.Column(db.Text, nullable=False)
+    set_name = db.Column(db.Text, nullable=True)
+    meta_prefix = db.Column(db.Text, nullable=True)
+
 
     @classmethod
     def create(cls, data):
         """Create a new banner."""
-        _categories = [t[0] for t in current_app.config["BANNERS_CATEGORIES"]]
-        assert data.get("category") in _categories
+        # _categories = [t[0] for t in current_app.config["BANNERS_CATEGORIES"]]
+        # assert data.get("category") in _categories
         with db.session.begin_nested():
             obj = cls(
                 message=data.get("message"),
@@ -59,6 +65,10 @@ class BannerModel(db.Model, Timestamp):
                 start_datetime=data.get("start_datetime"),
                 end_datetime=data.get("end_datetime"),
                 active=data.get("active"),
+                repo_name=data.get("repo_name"),
+                oai_url=data.get("oai_url"),
+                set_name=data.get("set_name"),
+                meta_prefix=data.get("meta_prefix"),
             )
             db.session.add(obj)
 

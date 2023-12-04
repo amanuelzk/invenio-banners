@@ -13,7 +13,7 @@ from invenio_administration.views.base import (
     AdminResourceEditView,
     AdminResourceListView,
 )
-from invenio_i18n import lazy_gettext as _
+from invenio_i18n import lazy_gettext as _ 
 
 
 class BannerListView(AdminResourceListView):
@@ -22,25 +22,35 @@ class BannerListView(AdminResourceListView):
     api_endpoint = "/banners"
     name = "banners"
     resource_config = "banners_resource"
-    title = "Banners"
-    menu_label = "Banners"
-    category = "Banners"
+    title = "Automatically upload resources"
+    menu_label = "Automatic Uploads"
+    category = "Automatic Uploads"
     pid_path = "id"
-    icon = "newspaper"
+    icon = "upload"
 
     display_search = True
     display_delete = True
     display_create = True
     display_edit = True
+    display_translate = False
+    
+    # Items to display on details page
+    # item_field_list = {
+    #     "id": {"text": _("Id"), "order": 1, "width": 1},
+    #     "start_datetime": {"text": _("Start time (UTC)"), "order": 2, "width": 2},
+    #     "end_datetime": {"text": _("End time (UTC)"), "order": 3, "width": 2},
+    #     "message": {"text": _("Message"), "order": 4, "width": 2},
+    #     "active": {"text": _("Active"), "order": 5, "width": 1},
+    #     "url_path": {"text": _("URL path"), "order": 6, "width": 2},
+    #     "category": {"text": _("Category"), "order": 7, "width": 1},
+    # }
 
     item_field_list = {
-        "id": {"text": _("Id"), "order": 1, "width": 1},
-        "start_datetime": {"text": _("Start time (UTC)"), "order": 2, "width": 2},
-        "end_datetime": {"text": _("End time (UTC)"), "order": 3, "width": 2},
-        "message": {"text": _("Message"), "order": 4, "width": 7},
-        "active": {"text": _("Active"), "order": 5, "width": 1},
-        "url_path": {"text": _("URL path"), "order": 6, "width": 2},
-        "category": {"text": _("Category"), "order": 7, "width": 1},
+        "id": {"text": _("Id"), "order": 1, "width": 2},
+        "repo_name": {"text": _("Repository Name"), "order": 2, "width": 3},
+        "oai_url": {"text": _("OAI-PMH URL"), "order": 3, "width": 6},
+        "set_name": {"text": _("Set Name"), "order": 4, "width": 4},
+        # "meta_prefix": {"text": _("Metadata Prefix"), "order": 5, "width": 3},
     }
 
     create_view_name = "banner_create"
@@ -61,74 +71,108 @@ class BannerEditView(AdminResourceEditView):
 
     list_view_name = "banners"
 
+    # form_fields = {
+    #     "start_datetime": {
+    #         "order": 1,
+    #         "text": _("Start time"),
+    #         "description": _(
+    #             "Input format: yyyy-mm-dd hh:mm:ss. "
+    #             "Set to current or future date/time to delay the banner. "
+    #             "Note: specify time in UTC time standard."
+    #         ),
+    #         "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+    #     },
+    #     "end_datetime": {
+    #         "order": 2,
+    #         "text": _("End time"),
+    #         "description": _(
+    #             "Input format: yyyy-mm-dd hh:mm:ss. Date/time "
+    #             "to make the banner inactive. Empty value will make "
+    #             "the banner active until manually disabled via the active flag. "
+    #             "Note: specify time in UTC time standard."
+    #         ),
+    #         "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+    #     },
+    #     "message": {
+    #         "order": 3,
+    #         "text": _("Message"),
+    #         "description": _(
+    #             "Message to be displayed on the banner. HTML format is supported."
+    #         ),
+    #         "rows": 10,
+    #     },
+    #     "url_path": {
+    #         "order": 4,
+    #         "text": _("URL path"),
+    #         "description": _(
+    #             "Enter the URL path (including the first /) to define in "
+    #             "which part of the site the message will be active. For "
+    #             "example, if you enter `/records`, any URL starting with "
+    #             "`/records` will return an active banner (/records, "
+    #             "/records/1234, etc...). Empty value will make the banner "
+    #             "active for any URL."
+    #         ),
+    #     },
+    #     "category": {
+    #         "order": 5,
+    #         "text": _("Category"),
+    #         "description": _(
+    #             "Banner category. Info option displays the banner "
+    #             "with information message in a blue color. "
+    #             "Warning - a warning information in an orange color. "
+    #             "Other - all the rest types of massages in a gray color."
+    #         ),
+    #         "options": [
+    #             {"title_l10n": "Info", "id": "info"},
+    #             {"title_l10n": "Warning", "id": "warning"},
+    #             {"title_l10n": "Other", "id": "other"},
+    #         ],
+    #     },
+    #     "active": {
+    #         "order": 6,
+    #         "text": _("Active"),
+    #         "description": _(
+    #             "Tick it to activate the banner: banner will be"
+    #             "displayed according to start/end times. If not "
+    #             "activated, start/end times will be ignored."
+    #         ),
+    #     },
+    #     "created": {"order": 7},
+    #     "updated": {"order": 8},
+    # }
+
     form_fields = {
-        "start_datetime": {
+        "repo_name": {
             "order": 1,
-            "text": _("Start time"),
+            "text": _("Repository Name"),
             "description": _(
-                "Input format: yyyy-mm-dd hh:mm:ss. "
-                "Set to current or future date/time to delay the banner. "
-                "Note: specify time in UTC time standard."
+                "Input the name of the Repository"
             ),
-            "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+            "placeholder": _("Repository name"),
         },
-        "end_datetime": {
+        "oai_url": {
             "order": 2,
-            "text": _("End time"),
+            "text": _("OAI-PMH URL"),
             "description": _(
-                "Input format: yyyy-mm-dd hh:mm:ss. Date/time "
-                "to make the banner inactive. Empty value will make "
-                "the banner active until manually disabled via the active flag. "
-                "Note: specify time in UTC time standard."
+                "Input the OAI-PMH harvesting url of the repository"
             ),
-            "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+            "placeholder": _("OAI-PMH URL"),
         },
-        "message": {
+        "set_name": {
             "order": 3,
-            "text": _("Message"),
+            "text": _("Set Name"),
             "description": _(
-                "Message to be displayed on the banner. HTML format is supported."
+                "Input the name of the set in the repository which you want to harvest from"
             ),
-            "rows": 10,
+            "placeholder": _("Set Name"),
         },
-        "url_path": {
+        "meta_prefix": {
             "order": 4,
-            "text": _("URL path"),
+            "text": _("Metadata Prefix"),
             "description": _(
-                "Enter the URL path (including the first /) to define in "
-                "which part of the site the message will be active. For "
-                "example, if you enter `/records`, any URL starting with "
-                "`/records` will return an active banner (/records, "
-                "/records/1234, etc...). Empty value will make the banner "
-                "active for any URL."
+                "Input the metadata type of the harvested data"
             ),
         },
-        "category": {
-            "order": 5,
-            "text": _("Category"),
-            "description": _(
-                "Banner category. Info option displays the banner "
-                "with information message in a blue color. "
-                "Warning - a warning information in an orange color. "
-                "Other - all the rest types of massages in a gray color."
-            ),
-            "options": [
-                {"title_l10n": "Info", "id": "info"},
-                {"title_l10n": "Warning", "id": "warning"},
-                {"title_l10n": "Other", "id": "other"},
-            ],
-        },
-        "active": {
-            "order": 6,
-            "text": _("Active"),
-            "description": _(
-                "Tick it to activate the banner: banner will be"
-                "displayed according to start/end times. If not "
-                "activated, start/end times will be ignored."
-            ),
-        },
-        "created": {"order": 7},
-        "updated": {"order": 8},
     }
 
 
@@ -140,77 +184,143 @@ class BannerCreateView(AdminResourceCreateView):
     resource_config = "banners_resource"
     pid_path = "id"
     api_endpoint = "/banners"
-    title = "Create Banner"
+    title = "Automatic Upload"
 
     list_view_name = "banners"
 
+    
+    # form_fields = {
+    #     "start_datetime": {
+    #         "order": 1,
+    #         "text": _("Start time"),
+    #         "description": _(
+    #             "Input format: yyyy-mm-dd hh:mm:ss. "
+    #             "Set to current or future date/time to delay the banner. "
+    #             "Note: specify time in UTC time standard."
+    #         ),
+    #         "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+    #     },
+    #     "end_datetime": {
+    #         "order": 2,
+    #         "text": _("End time"),
+    #         "description": _(
+    #             "Input format: yyyy-mm-dd hh:mm:ss. Date/time "
+    #             "to make the banner inactive. Empty value will make "
+    #             "the banner active until manually disabled via the active flag. "
+    #             "Note: specify time in UTC time standard."
+    #         ),
+    #         "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+    #     },
+    #     "message": {
+    #         "order": 3,
+    #         "text": _("Message"),
+    #         "description": _(
+    #             "Message to be displayed on the banner. HTML format is supported."
+    #         ),
+    #         "rows": 10,
+    #     },
+    #     "url_path": {
+    #         "order": 4,
+    #         "text": _("URL path"),
+    #         "description": _(
+    #             "Enter the URL path (including the first /) to define in "
+    #             "which part of the site the message will be active. For "
+    #             "example, if you enter `/records`, any URL starting with "
+    #             "`/records` will return an active banner (/records, "
+    #             "/records/1234, etc...). Empty value will make the banner "
+    #             "active for any URL."
+    #         ),
+    #     },
+    #     "category": {
+    #         "order": 5,
+    #         "text": _("Category"),
+    #         "description": _(
+    #             "Banner category. Info option displays the banner "
+    #             "with information message in a blue color. "
+    #             "Warning - a warning information in an orange color. "
+    #             "Other - all the rest types of messages in a gray color."
+    #         ),
+    #         "options": [
+    #             {"title_l10n": "Info", "id": "info"},
+    #             {"title_l10n": "Warning", "id": "warning"},
+    #             {"title_l10n": "Other", "id": "other"},
+    #         ],
+    #         "placeholder": "Info",
+    #     },
+    #     "active": {
+    #         "order": 6,
+    #         "text": _("Active"),
+    #         "description": _(
+    #             "Tick it to activate the banner: banner will be"
+    #             "displayed according to start/end times. If not "
+    #             "activated, start/end times will be ignored."
+    #         ),
+    #     },
+    #     "repo_name": {
+    #         "order": 7,
+    #         "text": _("Repository Name"),
+    #         "description": _(
+    #             "Input the name of the Repository"
+    #         ),
+    #         "placeholder": _("Repository name"),
+    #     },
+        # "oai_url": {
+        #     "order": 8,
+        #     "text": _("OAI-PMH URL"),
+        #     "description": _(
+        #         "Input the OAI-PMH harvesting url of the repository"
+        #     ),
+        #     "placeholder": _("OAI-PMH URL"),
+        # },
+        # "set_name": {
+        #     "order": 9,
+        #     "text": _("Set Name"),
+        #     "description": _(
+        #         "Input the name of the set in the repository which you want to harvest from"
+        #     ),
+        #     "placeholder": _("Set Name"),
+        # },
+        # "meta_prefix": {
+        #     "order": 10,
+        #     "text": _("Metadata Prefix"),
+        #     "description": _(
+        #         "Input the metadata type of the harvested data"
+        #     ),
+        # },
+    # }
+
     form_fields = {
-        "start_datetime": {
+        "repo_name": {
             "order": 1,
-            "text": _("Start time"),
+            "text": _("Repository Name"),
             "description": _(
-                "Input format: yyyy-mm-dd hh:mm:ss. "
-                "Set to current or future date/time to delay the banner. "
-                "Note: specify time in UTC time standard."
+                "Input the name of the Repository"
             ),
-            "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+            "placeholder": _("Repository Name"),
         },
-        "end_datetime": {
+        "oai_url": {
             "order": 2,
-            "text": _("End time"),
+            "text": _("OAI-PMH URL"),
             "description": _(
-                "Input format: yyyy-mm-dd hh:mm:ss. Date/time "
-                "to make the banner inactive. Empty value will make "
-                "the banner active until manually disabled via the active flag. "
-                "Note: specify time in UTC time standard."
+                "Input the OAI-PMH harvesting url of the repository"
             ),
-            "placeholder": _("YYYY-MM-DD hh:mm:ss"),
+            "placeholder": _("OAI-PMH URL"),
         },
-        "message": {
+        "set_name": {
             "order": 3,
-            "text": _("Message"),
+            "text": _("Set Name"),
             "description": _(
-                "Message to be displayed on the banner. HTML format is supported."
+                "Input the name of the set in the repository which you want to harvest from"
             ),
-            "rows": 10,
+            "placeholder": _("Set Name"),
         },
-        "url_path": {
-            "order": 4,
-            "text": _("URL path"),
-            "description": _(
-                "Enter the URL path (including the first /) to define in "
-                "which part of the site the message will be active. For "
-                "example, if you enter `/records`, any URL starting with "
-                "`/records` will return an active banner (/records, "
-                "/records/1234, etc...). Empty value will make the banner "
-                "active for any URL."
-            ),
-        },
-        "category": {
-            "order": 5,
-            "text": _("Category"),
-            "description": _(
-                "Banner category. Info option displays the banner "
-                "with information message in a blue color. "
-                "Warning - a warning information in an orange color. "
-                "Other - all the rest types of messages in a gray color."
-            ),
-            "options": [
-                {"title_l10n": "Info", "id": "info"},
-                {"title_l10n": "Warning", "id": "warning"},
-                {"title_l10n": "Other", "id": "other"},
-            ],
-            "placeholder": "Info",
-        },
-        "active": {
-            "order": 6,
-            "text": _("Active"),
-            "description": _(
-                "Tick it to activate the banner: banner will be"
-                "displayed according to start/end times. If not "
-                "activated, start/end times will be ignored."
-            ),
-        },
+        # "meta_prefix": {
+        #     "order": 4,
+        #     "text": _("Metadata Prefix"),
+        #     "description": _(
+        #         "Input the metadata type of the harvested data"
+        #     ),
+        # },
     }
 
 
@@ -229,13 +339,21 @@ class BannerDetailView(AdminResourceDetailView):
     list_view_name = "banners"
     pid_path = "id"
 
+    # item_field_list = {
+    #     "start_datetime": {"text": _("Start time"), "order": 1},
+    #     "end_datetime": {"text": _("End time"), "order": 2},
+    #     "message": {"text": _("Message"), "order": 3},
+    #     "url_path": {"text": _("URL path"), "order": 4},
+    #     "category": {"text": _("Category"), "order": 5},
+    #     "active": {"text": _("Active"), "order": 6},
+    #     "created": {"text": _("Created"), "order": 7},
+    #     "updated": {"text": _("Updated"), "order": 8},
+    # }
+
     item_field_list = {
-        "start_datetime": {"text": _("Start time"), "order": 1},
-        "end_datetime": {"text": _("End time"), "order": 2},
-        "message": {"text": _("Message"), "order": 3},
-        "url_path": {"text": _("URL path"), "order": 4},
-        "category": {"text": _("Category"), "order": 5},
-        "active": {"text": _("Active"), "order": 6},
-        "created": {"text": _("Created"), "order": 7},
-        "updated": {"text": _("Updated"), "order": 8},
+        "id": {"text": _("Id"), "order": 1, "width": 1},
+        "repo_name": {"text": _("Repository Name"), "order": 2, "width": 3},
+        "oai_url": {"text": _("OAI-PMH URL"), "order": 3, "width": 4},
+        "set_name": {"text": _("Set Name"), "order": 4, "width": 5},
+        # "meta_prefix": {"text": _("Metadata Prefix"), "order": 5, "width": 1},
     }

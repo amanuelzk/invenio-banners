@@ -42,25 +42,44 @@ class SearchOptions:
         ),
     }
 
-    sort_default = "start_datetime"
+    # sort_default = "start_datetime"
+    # sort_options = {
+    #     "url_path": dict(
+    #         title=_("Url path"),
+    #         fields=["url_path"],
+    #     ),
+    #     "start_datetime": dict(
+    #         title=_("Start time"),
+    #         fields=["start_datetime"],
+    #     ),
+    #     "end_datetime": dict(
+    #         title=_("End time"),
+    #         fields=["end_datetime"],
+    #     ),
+    #     "active": dict(
+    #         title=_("Active"),
+    #         fields=["active"],
+    #     ),
+    # }
+    sort_default = "repo_name"
     sort_options = {
-        "url_path": dict(
-            title=_("Url path"),
-            fields=["url_path"],
+        "repo_name": dict(
+            title=_("Repo name"),
+            fields=["repo_name"],
         ),
-        "start_datetime": dict(
-            title=_("Start time"),
-            fields=["start_datetime"],
+        "oai_url": dict(
+            title=_("OAI URL"),
+            fields=["oai_url"],
         ),
-        "end_datetime": dict(
-            title=_("End time"),
-            fields=["end_datetime"],
+        "set_name": dict(
+            title=_("Set Name"),
+            fields=["set_name"],
         ),
-        "active": dict(
-            title=_("Active"),
-            fields=["active"],
+        "meta_prefix": dict(
+            title=_("Metadata Prefix"),
+            fields=["meta_prefix"],
         ),
-    }
+}
     pagination_options = {
         "default_results_per_page": 25,
     }

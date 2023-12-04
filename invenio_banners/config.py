@@ -21,33 +21,60 @@ BANNERS_CATEGORIES = [
 BANNERS_CATEGORIES_TO_STYLE = style_category
 """Function to transform the banner category to a specific Semantic-UI class."""
 
+# BANNERS_SEARCH = {
+#     "facets": [],
+#     "sort": [
+#         "url_path",
+#         "start_datetime",
+#         "end_datetime",
+#         "active",
+#     ],
+# }
 BANNERS_SEARCH = {
     "facets": [],
     "sort": [
-        "url_path",
-        "start_datetime",
-        "end_datetime",
-        "active",
+        "repo_name",
+        "oai_url",
+        "set_name",
+        "meta_prefix",
     ],
 }
 """Banner search configuration (i.e list of banners)"""
 
+# BANNERS_SORT_OPTIONS = {
+#     "url_path": dict(
+#         title=_("URL path"),
+#         fields=["url_path"],
+#     ),
+#     "start_datetime": dict(
+#         title=_("Start DateTime"),
+#         fields=["start_datetime"],
+#     ),
+#     "end_datetime": dict(
+#         title=_("End DateTime"),
+#         fields=["end_datetime"],
+#     ),
+#     "active": dict(
+#         title=_("Active"),
+#         fields=["active"],
+#     ),
+# }
+"""Definitions of available Banners sort options. """
 BANNERS_SORT_OPTIONS = {
-    "url_path": dict(
-        title=_("URL path"),
-        fields=["url_path"],
+    "repo_name": dict(
+        title=_("Repo name"),
+        fields=["repo_name"],
     ),
-    "start_datetime": dict(
-        title=_("Start DateTime"),
-        fields=["start_datetime"],
+    "oai_url": dict(
+        title=_("OAI URL"),
+        fields=["oai_url"],
     ),
-    "end_datetime": dict(
-        title=_("End DateTime"),
-        fields=["end_datetime"],
+    "set_name": dict(
+        title=_("Set Name"),
+        fields=["set_name"],
     ),
-    "active": dict(
-        title=_("Active"),
-        fields=["active"],
+    "meta_prefix": dict(
+        title=_("Metadata Prefix"),
+        fields=["meta_prefix"],
     ),
 }
-"""Definitions of available Banners sort options. """

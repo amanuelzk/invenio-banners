@@ -63,8 +63,8 @@ class BannerService(RecordService):
             if datetime_value is not None:
                 filters.extend(
                     [
-                        func.date(BannerModel.start_datetime) == datetime_value,
-                        func.date(BannerModel.end_datetime) == datetime_value,
+                        # func.date(BannerModel.start_datetime) == datetime_value,
+                        # func.date(BannerModel.end_datetime) == datetime_value,
                         func.date(BannerModel.created) == datetime_value,
                         func.date(BannerModel.updated) == datetime_value,
                     ]
