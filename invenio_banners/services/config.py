@@ -61,11 +61,15 @@ class SearchOptions:
     #         fields=["active"],
     #     ),
     # }
-    sort_default = "repo_name"
-    sort_options = {
+    sort_default = "id"
+    sort_options = {        
         "repo_name": dict(
             title=_("Repo name"),
             fields=["repo_name"],
+        ),
+        "id": dict(
+            title=_("ID"),
+            fields=["id"],
         ),
         "oai_url": dict(
             title=_("OAI URL"),
@@ -74,11 +78,7 @@ class SearchOptions:
         "set_name": dict(
             title=_("Set Name"),
             fields=["set_name"],
-        ),
-        "meta_prefix": dict(
-            title=_("Metadata Prefix"),
-            fields=["meta_prefix"],
-        ),
+        ),        
 }
     pagination_options = {
         "default_results_per_page": 25,
