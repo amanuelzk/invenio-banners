@@ -32,11 +32,11 @@ BANNERS_CATEGORIES_TO_STYLE = style_category
 # }
 BANNERS_SEARCH = {
     "facets": [],
-    "sort": [
+    "sort": [        
         "repo_name",
+        "id",
         "oai_url",
         "set_name",
-        "meta_prefix",
     ],
 }
 """Banner search configuration (i.e list of banners)"""
@@ -65,6 +65,10 @@ BANNERS_SORT_OPTIONS = {
         title=_("Repo name"),
         fields=["repo_name"],
     ),
+    "id": dict(
+        title=_("ID"),
+        fields=["id"],
+    ),
     "oai_url": dict(
         title=_("OAI URL"),
         fields=["oai_url"],
@@ -72,9 +76,5 @@ BANNERS_SORT_OPTIONS = {
     "set_name": dict(
         title=_("Set Name"),
         fields=["set_name"],
-    ),
-    "meta_prefix": dict(
-        title=_("Metadata Prefix"),
-        fields=["meta_prefix"],
     ),
 }

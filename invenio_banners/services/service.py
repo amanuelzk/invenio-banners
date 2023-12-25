@@ -46,9 +46,9 @@ class BannerService(RecordService):
         if query_param:
             filters.extend(
                 [
-                    BannerModel.url_path.ilike(f"%{query_param}%"),
-                    BannerModel.message.ilike(f"%{query_param}%"),
-                    BannerModel.category.ilike(f"%{query_param}%"),
+                    BannerModel.repo_name.ilike(f"%{query_param}%"),
+                    BannerModel.oai_url.ilike(f"%{query_param}%"),
+                    BannerModel.set_name.ilike(f"%{query_param}%"),
                 ]
             )
             bool_value = self._validate_bool(query_param)
